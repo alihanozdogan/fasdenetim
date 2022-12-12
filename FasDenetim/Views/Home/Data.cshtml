@@ -1,0 +1,38 @@
+﻿@using Microsoft.AspNetCore.Identity
+@{
+    ViewData["Title"] = "Data Table";
+}
+@inject SignInManager<IdentityUser> SignInManager
+@model IEnumerable<FasDenetim.Models.BilançoModel>  
+
+@if (SignInManager.IsSignedIn(User))
+    {
+        <div><b>Bilanço Tablosu</b><br /></div>  
+        <table class="table table-bordered table-responsive table-hover">  
+            <tr>  
+                <th>Id </th>  
+                <th>Bilanço </th>  
+                <th>Önceki Yıl </th>  
+                <th>Cari Yıl</th>  
+                <th>Hesaplanmış Veri</th>
+            </tr>
+            @if (Model != null)
+            {
+                @foreach (var d in Model)  
+                {  
+                    <tr>  
+                        <td>@d.Id</td>  
+                        <td>@d.Bilanço</td>  
+                        <td>@d.OncekiYıl</td>  
+                        <td>@d.CariYıl</td>  
+                        <td>@d.HesaplanmışVeri</td>
+                    </tr>  
+                }  
+            }
+            
+        </table>
+    }
+    else
+    {
+        <h2>Please Log in to see content of this page.</h2>
+    }

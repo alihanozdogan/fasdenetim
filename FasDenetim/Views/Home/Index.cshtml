@@ -1,0 +1,46 @@
+﻿@using Microsoft.AspNetCore.Identity
+@{
+    ViewData["Title"] = "Home Page";
+}
+@inject SignInManager<IdentityUser> SignInManager
+
+@if (SignInManager.IsSignedIn(User))
+    {
+        <div class="container">
+            <h3>Please Choose a Excel File</h3>
+            <form method="post" asp-controller="Home" asp-action="Import" enctype="multipart/form-data">
+                <input type="file" name="file"/>
+                <button type="submit">Import from excel </button>
+            </form>
+                
+                    <div><b>Bilanço Tablosu</b><br /></div>  
+                    <table class="table table-bordered table-responsive table-hover">  
+                        <tr>  
+                            <th>Id </th>  
+                            <th>Bilanço </th>  
+                            <th>Önceki Yıl </th>  
+                            <th>Cari Yıl</th>  
+                            <th>Hesaplanmış Veri</th>
+                        </tr>
+                        @if (Model != null)
+                        {
+                            @foreach (var d in Model)  
+                            {  
+                                <tr>  
+                                    <td>@d.Id</td>  
+                                    <td>@d.Bilanço</td>  
+                                    <td>@d.OncekiYıl</td>  
+                                    <td>@d.CariYıl</td>  
+                                    <td>@d.HesaplanmışVeri</td>
+                                </tr>  
+                            }  
+                        }
+                        
+                    </table>
+                
+        </div>
+    }
+    else
+    {
+        <h2>Please Log in to see content of this page.</h2>
+    }
